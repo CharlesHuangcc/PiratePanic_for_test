@@ -105,3 +105,12 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /PiratePanic//[Aa]ssets/[Ss]ceneDependencyCache*
+
+
+# 屏蔽NakamaServer多余文件
+/NakamaServer/build/
+/NakamaServer/data/
+/NakamaServer/node_modules/
+/NakamaServer/package.json
+/NakamaServer/package-lock.json
+/NakamaServer/tsconfig.json
