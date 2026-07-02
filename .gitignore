@@ -85,32 +85,37 @@ crashlytics-build.properties
 InitTestScene*.unity*
 
 # Addressables default ignores, before user customizations
-/PiratePanic//ServerData
-/PiratePanic//[Aa]ssets/StreamingAssets/aa*
-/PiratePanic//[Aa]ssets/AddressableAssetsData/link.xml*
-/PiratePanic//[Aa]ssets/Addressables_Temp*
+/PiratePanic/ServerData
+/PiratePanic/[Aa]ssets/StreamingAssets/aa*
+/PiratePanic/[Aa]ssets/AddressableAssetsData/link.xml*
+/PiratePanic/[Aa]ssets/Addressables_Temp*
 # By default, Addressables content builds will generate addressables_content_state.bin
 # files in platform-specific subfolders, for example:
-# /PiratePanic//Assets/AddressableAssetsData/OSX/addressables_content_state.bin
-/PiratePanic//[Aa]ssets/AddressableAssetsData/*/*.bin*
+# /PiratePanic/Assets/AddressableAssetsData/OSX/addressables_content_state.bin
+/PiratePanic/[Aa]ssets/AddressableAssetsData/*/*.bin*
 
 # Visual Scripting auto-generated files
-/PiratePanic//[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Flow/UnitOptions.db
-/PiratePanic//[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Flow/UnitOptions.db.meta
-/PiratePanic//[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Core/Property Providers
-/PiratePanic//[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Core/Property Providers.meta
+/PiratePanic/[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Flow/UnitOptions.db
+/PiratePanic/[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Flow/UnitOptions.db.meta
+/PiratePanic/[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Core/Property Providers
+/PiratePanic/[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Core/Property Providers.meta
 
 # Auto-generated scenes by play mode tests
-/PiratePanic//[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+/PiratePanic/[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
 
 # Auto-generated cache in Assets folder
-/PiratePanic//[Aa]ssets/[Ss]ceneDependencyCache*
+/PiratePanic/[Aa]ssets/[Ss]ceneDependencyCache*
 
 
 # 屏蔽NakamaServer多余文件
+/PiratePanic/nakama-dotnet/
+/PiratePanic/NakamaReflector/
+
 /NakamaServer/build/
-/NakamaServer/data/
+/NakamaServer/nakama-logs/
 /NakamaServer/node_modules/
+/NakamaServer/pg-data/
+/NakamaServer/.dockerignore
 /NakamaServer/package.json
 /NakamaServer/package-lock.json
 /NakamaServer/tsconfig.json

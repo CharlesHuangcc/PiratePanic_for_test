@@ -136,10 +136,14 @@ namespace PiratePanic
 			Test_LastInputSize = Vector2Int.zero;
 		}
 #endif
-#endregion
+        #endregion
 
+        void Start()
+        {
+            _ = StartAsync();
+        }
 
-		protected async Task Start()
+        protected async Task StartAsync()
 		{
 			Debug.Log("start called");
 

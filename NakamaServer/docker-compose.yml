@@ -6,7 +6,7 @@ services:
       - POSTGRES_DB=nakama
       - POSTGRES_PASSWORD=123456
     volumes:
-      - ./data:/var/lib/postgresql/data
+      - ./pg-data:/var/lib/postgresql/data
     expose:
       - "8080"
       - "5432"
@@ -27,13 +27,14 @@ services:
         /nakama/nakama migrate up --database.address postgres:123456@postgres:5432/nakama &&
         exec /nakama/nakama --name nakama1 --config /nakama/data/local.yml --database.address postgres:123456@postgres:5432/nakama --logger.level DEBUG --session.token_expiry_sec 7200        
     restart: always
-    links:
-      - "postgres:db"
     depends_on:
       postgres:
         condition: service_healthy
-    #volumes: # 通过“build: .”本地构建过，因此需要屏蔽
+    volumes:
+    #取消挂载目录，直接使用 Dockerfile 打包进镜像的 local.yml + build/index.js
     #  - ./data:/nakama/data
+    #或者只为持久化日志、存档
+      - ./nakama-logs:/nakama/data/logs
     expose:
       - "7349"
       - "7350"
@@ -47,5 +48,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-volumes:
-  data:
+# 用不到命名卷
+#volumes:
+#  data:

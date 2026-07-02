@@ -42,17 +42,13 @@ namespace PiratePanic
 		[SerializeField] private GameObject _nodePrefab = null;
 
 		private Node[,] Nodes;
-		
+
 		// 只读对外暴露，测试用
 		public Node[,] MapNodes => Nodes;
 		private Scene02BattleController _battleController;
 		public Scene02BattleController BattleController 
 		{
 			get {return _battleController;}
-		}
-		public void InjectBattleController(Scene02BattleController ctrl)
-		{
-    		_battleController = ctrl;
 		}
 
 		/// <summary>
@@ -78,7 +74,7 @@ namespace PiratePanic
 						position = new Vector3(x * SpaceDistance + 0.5f * SpaceDistance, 0, y * ((SpaceDistance * 0.5f / Mathf.Sin(Mathf.PI / 3f)) + 0.25f * SpaceDistance));
 					}
 
-					if (Vector2.Distance(center, new Vector2(position.x, position.z)) > CenterCutSize * SpaceDistance / 2f)
+					if (Vector2.Distance(center, new Vector2(position.x, position.z)) >= CenterCutSize * SpaceDistance / 2f)
 					{
 						if (y % 2 == 0 || x < Size.x - 1)
 						{
@@ -87,8 +83,25 @@ namespace PiratePanic
 					}
 				}
 			}
-			Scene02BattleController.Instance.InitMap(Nodes, Size);
+
+			_battleController?.InitMap(Nodes, Size); // 注入不为空才调用，避免空引用
 		}
+
+
+		/// <summary>
+		/// 业务场景自动兜底获取单例，兼容原有游戏逻辑，测试环境不会走这里（测试提前注入）
+		/// </summary>
+		private void Start()
+		{
+			// 测试时会提前 Inject 赋值，不会进入单例获取逻辑
+			if (_battleController == null && Scene02BattleController.Instance != null)
+			{
+				_battleController = Scene02BattleController.Instance;
+				// Awake 已经执行完毕，重新推送地图数据给控制器
+				_battleController.InitMap(Nodes, Size);
+			}
+		}
+
 
 		/// <summary>
 		/// Viewing node map in editor
@@ -178,5 +191,11 @@ namespace PiratePanic
 			Nodes[x1, y1].AddConnectedNode(Nodes[x2, y2]);
 			Nodes[x2, y2].AddConnectedNode(Nodes[x1, y1]);
 		}
+
+		public void InjectBattleController(Scene02BattleController ctrl)
+		{
+    		_battleController = ctrl;
+		}
+
 	}
 }
