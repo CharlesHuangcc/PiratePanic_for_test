@@ -17,7 +17,7 @@ MonoBehaviour:
   _description: Medicore damage, medicore speed.
   _sprite: {fileID: 21300000, guid: 81dbc1a5ada6a3e46ba271de5fdf2073, type: 3}
   _cost: 4
-  _health: 100
+  _health: -10
   _healthPerLevel: 15
   _damage: 8
   _damagePerLevel: 4
@@ -30,5 +30,4 @@ MonoBehaviour:
   _rotationSpeedPerLevel: 0
   _dropRegion: 3
   _canBeDroppedOverOtherUnits: 0
-  _visualizerPrefab: {fileID: 4477121437640225205, guid: 7805d93c4c081fc40acfa558352881cd,
-    type: 3}
+  _visualizerPrefab: {fileID: 4477121437640225205, guid: 7805d93c4c081fc40acfa558352881cd, type: 3}
