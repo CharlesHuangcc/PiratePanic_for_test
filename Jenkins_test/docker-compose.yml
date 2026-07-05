@@ -1,0 +1,18 @@
+services:
+  jenkins:
+    image: jenkins/jenkins:lts-jdk17
+    container_name: jenkins
+    ports:
+      - "8085:8080"
+      - "50000:50000"
+    volumes:
+      # Windows 本地目录映射容器 jenkins 数据目录
+      - D:/jenkins:/var/jenkins_home
+    dns:
+      - 8.8.8.8
+      - 114.114.114.114
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "10"

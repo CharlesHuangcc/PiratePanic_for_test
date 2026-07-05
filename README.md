@@ -54,7 +54,7 @@ PS D:\codeTrain\PiratePanic_for_test\NakamaServer>
 
 ```
 
-在3输入输出执行完毕后，需要修改`tsconfig.json`，并保存文件，再继续往下执行4、5：
+在3输入输出执行完毕后，需要修改`tsconfig.json`，并保存文件，再继续往下执行4、5部分：
 
 - 屏蔽`"module": "commonjs",`
 - 确认`"target": "es2016",`的值修改为`es5`
@@ -63,7 +63,7 @@ PS D:\codeTrain\PiratePanic_for_test\NakamaServer>
 
 - 新建"files"，添加`/src`目录下的文件，准备编译
 
-  ```
+  ```json
   {
     "files": [
       "./src/clans.ts",
@@ -78,11 +78,6 @@ PS D:\codeTrain\PiratePanic_for_test\NakamaServer>
     }
   }
   ```
-
-  
-
-
-
 
 
 ## 搭建 Docker
@@ -119,7 +114,13 @@ docker compose up --build nakama
 - 需要 Unity 2020.3.7f1或更高版本，最好是 Unity 2022.3.44f1c1 。
 
 ## 设置、运行
-1.本项目在 Unity 2022.3.44f1c1 版本打开`./PiratePanic`的Unity项目。
-2.打开 Unity 控制台窗口（Unity 在 Windows→通用→控制台），确认没有任何警告或错误。
-3.默认情况下，游戏会尝试与 localhost 的 7350 端口通信，这是 Nakama 的默认 HTTP 端口。
-4.打开Scene1，运行游戏
+
+（0）确认服务器启动成功。
+
+（1）本项目在 Unity 2022.3.44f1c1 版本打开`./PiratePanic`的Unity项目。
+
+（2）打开 Unity 控制台窗口（Unity 在 Windows→通用→控制台），确认没有任何警告或错误。
+
+（3）默认情况下，游戏会尝试与 localhost 的 7350 端口通信，这是 Nakama 的默认 HTTP 端口。
+
+（4）Scene搜索`Scene01MainMenu.unity`并打开，运行客户端

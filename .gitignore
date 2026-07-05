@@ -119,3 +119,15 @@ InitTestScene*.unity*
 /NakamaServer/package.json
 /NakamaServer/package-lock.json
 /NakamaServer/tsconfig.json
+
+
+# 屏蔽python项目多余文件
+/python_test/.venv/
+/python_test/.uv_cache/
+/python_test/.pytest_cache/
+/python_test/.vscode/
+/python_test/.idea/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd

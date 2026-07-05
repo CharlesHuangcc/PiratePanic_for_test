@@ -132,21 +132,24 @@ const rpcUpgradeCard: nkruntime.RpcFunction =
         throw Error('Internal server error');
     }
 
-    let card = userCards.deckCards[request.id];
-    if (card) {
-        card.level += 1;
-        userCards.deckCards[request.id] = card;
+    let targetCard: Card | null = null;
+    // 出战卡组升级
+    const deckCard = userCards.deckCards[request.id];
+    if (deckCard) {
+        deckCard.level += 1;
+        targetCard = deckCard;
     }
 
-    card = userCards.storedCards[request.id];
-    if (card) {
-        card.level += 1;
-        userCards.storedCards[request.id] = card;
+    // 仓库卡牌升级
+    const storeCard = userCards.storedCards[request.id];
+    if (storeCard) {
+        storeCard.level += 1;
+        targetCard = storeCard;
     }
 
-    if (!card) {
-        logger.error('invalid card');
-        throw Error('invalid card');
+    if (!targetCard) {
+        logger.error("invalid card id=%s, userId=%s", request.id, ctx.userId!);
+        throw new Error("invalid card");
     }
 
     try {
@@ -156,9 +159,9 @@ const rpcUpgradeCard: nkruntime.RpcFunction =
         throw Error('Internal server error');
     }
 
-    logger.debug('user %s card %s upgraded', ctx.userId!, JSON.stringify(card));
+    logger.debug('user %s card %s upgraded', ctx.userId!, JSON.stringify(targetCard));
 
-    return JSON.stringify(card);
+    return JSON.stringify(targetCard);
 }
 
 /**
