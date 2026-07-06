@@ -1,6 +1,17 @@
 # PiratePanic_for_test
 This is an automated testing practice project based on Nakama's sample project “Pirate Panic” (which includes both client and server components).
 
+# 项目所需工具
+
+- Docker29.5.2，用以管理jenkins、nakama、postgres的镜像
+- Python3.12，额外需要uv管理工具
+- JDK17，启动Jenkins 服务
+- Jenkins，开源工具，用于自动化软件打包、测试、部署
+- Unity2022.3.44f1c1，开发游戏客户端，额外需要Unity Test Framework
+- nakama，一个开源的在线和多人服务器框架，作为游戏的服务器
+- postgres，与nakama配套使用的数据库
+- Node.js，nakama业务代码采用TypeScript，用于编译代码
+
 
 # 服务器环境准备
 
@@ -115,12 +126,36 @@ docker compose up --build nakama
 
 ## 设置、运行
 
-（0）确认服务器启动成功。
+（1）确认服务器启动成功。
 
-（1）本项目在 Unity 2022.3.44f1c1 版本打开`./PiratePanic`的Unity项目。
+（2）本项目在 Unity 2022.3.44f1c1 版本打开`./PiratePanic`的Unity项目。
 
-（2）打开 Unity 控制台窗口（Unity 在 Windows→通用→控制台），确认没有任何警告或错误。
+（3）打开 Unity 控制台窗口（Unity 在 Windows→通用→控制台），确认没有任何警告或错误。
 
-（3）默认情况下，游戏会尝试与 localhost 的 7350 端口通信，这是 Nakama 的默认 HTTP 端口。
+（4）默认情况下，游戏会尝试与 localhost 的 7350 端口通信，这是 Nakama 的默认 HTTP 端口。
 
-（4）Scene搜索`Scene01MainMenu.unity`并打开，运行客户端
+（5）Scene搜索`Scene01MainMenu.unity`并打开，运行客户端
+
+# 本项目自动化测试流程
+
+1 git仓库代码修改，触发jenkins检查流水线
+
+2.1 静态配置检查，采用Unity的UTF的EditMode检查unity内ScriptableObject类配置；或python检查excel、csv配置表等。通过率低则中断，返回警告。
+
+2.2 客户端代码检查，采用Unity的UTF的EditMode检查C#代码，单元测试。通过率低则中断，返回警告。
+
+2.3 服务端业务代码检查，利用python的pytest库，进行单元测试。通过率低则中断，返回警告。
+
+3.1 编译客户端，写python脚本，构建unity。失败则中断，返回警告。
+
+3.2 启动服务器，Docker重建，启动nakama+postgres。失败则中断，返回警告。
+
+4.1 客户端集成测试，采用Unity的UTF的PlayMode，运行检查各模块Manager脚本。通过率低则中断，返回警告。
+
+4.2 服务端协议测试，写python脚本（利用pytest），进行服务器、数据库接口联调、协议收发正确性测试。通过率低则中断，返回警告。
+
+5.1 写python脚本（利用airtest，或python的opencv库的模板匹配），执行冒烟测试，运行、联机、战斗等主流程测试。通过率低则中断，返回警告。
+
+5.2 进行回归测试，跑更多测试用例。通过率低则中断，返回警告。
+
+6 返回测试报告。
